@@ -15,12 +15,12 @@
 							<p class="fs-4">Add Category</p>
 							<th:block th:if="${session.succMsg}">
 								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
-								<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
 								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
-								<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 						</div>
@@ -84,8 +84,9 @@
 											width="50px" height="50px"></td>
 										<td><a th:href="@{'/admin/loadEditCategory/'+${cat.id}}"
 											class="btn btn-primary btn-sm"><i
-												class="fa-solid fa-pen-to-square  fa-1x"></i> Edit </a> <a
-											th:href="@{'/admin/deleteCategory/'+${cat.id}}"
+												class="fa-solid fa-pen-to-square  fa-1x"></i> Edit </a>
+										 
+										 <a	th:href="@{'/admin/deleteCategory/'+${cat.id}}"
 											class="btn btn-danger btn-sm"><i
 												class="fa-solid fa-trash  fa-1x"></i>Delete</a></td>
 									</tr>
