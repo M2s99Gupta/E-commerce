@@ -205,8 +205,10 @@ public class AdminController {
 		String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
 
 		product.setImage(imageName);
-//		product.setDiscount(0);
-//		product.setDiscountPrice(product.getPrice());
+		
+		product.setDiscount(0);
+		product.setDiscountPrice(product.getPrice());
+		
 		Product saveProduct = productService.saveProduct(product);
 
 		if (!ObjectUtils.isEmpty(saveProduct)) {
@@ -292,6 +294,8 @@ public class AdminController {
 		}
 		return "redirect:/admin/editProduct/" + product.getId();
 	}
+	
+	
 
 	@GetMapping("/users")
 	public String getAllUsers(Model m, @RequestParam Integer type) {
