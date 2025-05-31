@@ -1,6 +1,5 @@
 package com.ecom.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,32 +16,30 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Product {
+public class UserDtls {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
-	@Column(length = 500)
-	private String title;
+	private String name;
 	
-	@Column(length = 5000)
-	private String Description;
+	private String mobleNumber;
 	
+	private String email;
 	
-	private String Category;
+	private String address;
 	
-	private Double price;
+	private String city;
 	
-	private int stock;
+	private String state;
 	
-	private String image;
+	private String pincode;
 	
-	private int discount;
+	private String password;
 	
-	private Double discountPrice;
+	private String profileImage;
 	
-	private Boolean isActive;
+	private String role;
 	
 }

@@ -1,7 +1,6 @@
 package com.ecom.service.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 		dbProduct.setPrice(product.getPrice());
 		dbProduct.setStock(product.getStock());
 		dbProduct.setImage(imageName);
-		
+		dbProduct.setIsActive(product.getIsActive());
 		dbProduct.setDiscount(product.getDiscount());
 		
 		Double discount = product.getPrice()*(product.getDiscount()/100);
@@ -100,6 +99,21 @@ public class ProductServiceImpl implements ProductService {
 			
 		}
 		return null;
+	}
+
+	@Override
+	public List<Product> getAllActiveProducts(String category) {
+		
+		List<Product> products = null;
+		
+		if(ObjectUtils.isEmpty(category)){
+			
+			products = productRepository.findByIsActiveTrue();
+		}else {
+			products = productRepository.findByCategory(category);
+		}
+		
+		return products;
 	}
 	
 	
