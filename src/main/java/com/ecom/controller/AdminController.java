@@ -52,30 +52,30 @@ public class AdminController {
 	private UserService userService;
 
 	@Autowired
-//	private CartService cartService;
-//
-//	@Autowired
-//	private OrderService orderService;
-//
-//	@Autowired
-//	private CommonUtil commonUtil;
-//
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+	private CartService cartService;
 
-//	@ModelAttribute
-//	public void getUserDetails(Principal p, Model m) {
-//		if (p != null) {
-//			String email = p.getName();
-//			UserDtls userDtls = userService.getUserByEmail(email);
-//			m.addAttribute("user", userDtls);
-//			Integer countCart = cartService.getCountCart(userDtls.getId());
-//			m.addAttribute("countCart", countCart);
-//		}
-//
-//		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-//		m.addAttribute("categorys", allActiveCategory);
-//	}
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private CommonUtil commonUtil;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@ModelAttribute
+	public void getUserDetails(Principal p, Model m) {
+		if (p != null) {
+			String email = p.getName();
+			UserDtls userDtls = userService.getUserByEmail(email);
+			m.addAttribute("user", userDtls);
+			Integer countCart = cartService.getCountCart(userDtls.getId());
+			m.addAttribute("countCart", countCart);
+		}
+
+		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
+		m.addAttribute("categorys", allActiveCategory);
+	}
 
 	@GetMapping("/")
 	public String index() {
