@@ -29,8 +29,10 @@ public class CommonUtil {
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
-
-		helper.setFrom("daspabitra55@gmail.com", "Shooping Cart");
+		
+		
+		//personal mail ID
+		helper.setFrom("www.manishgupta316@gmail.com", "Shooping Cart");
 		helper.setTo(reciepentEmail);
 
 		String content = "<p>Hello,</p>" + "<p>You have requested to reset your password.</p>"

@@ -77,6 +77,7 @@
 									Cart</a>
 							</th:block>
 
+<!-- if user is login -->
 							<th:block th:unless="${user==null}">
 								<a
 									th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}"

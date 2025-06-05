@@ -52,4 +52,10 @@ public class UserDtls {
 	
 	private Date lockTime;
 	
+	private String resetToken;
+	
+	
+	
+	
+	
 }
