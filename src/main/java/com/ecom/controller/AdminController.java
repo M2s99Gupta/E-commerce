@@ -9,10 +9,11 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -88,8 +89,6 @@ public class AdminController {
 		m.addAttribute("categories", categories);
 		return "admin/add_product";
 	}
-	
-
 
 	@GetMapping("/category")
 	public String category(Model m, @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
@@ -128,7 +127,7 @@ public class AdminController {
 				session.setAttribute("errorMsg", "Not saved ! internal server error");
 			} else {
 
-				File saveFile = new ClassPathResource("static/img").getFile();  //to save image path after adding category
+				File saveFile = new ClassPathResource("static/img").getFile();
 
 				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
 						+ file.getOriginalFilename());
@@ -155,6 +154,10 @@ public class AdminController {
 
 		return "redirect:/admin/category";
 	}
+	
+//	for soft delete
+	
+	
 
 	@GetMapping("/loadEditCategory/{id}")
 	public String loadEditCategory(@PathVariable int id, Model m) {
@@ -205,10 +208,8 @@ public class AdminController {
 		String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
 
 		product.setImage(imageName);
-		
 		product.setDiscount(0);
 		product.setDiscountPrice(product.getPrice());
-		
 		Product saveProduct = productService.saveProduct(product);
 
 		if (!ObjectUtils.isEmpty(saveProduct)) {
@@ -270,6 +271,21 @@ public class AdminController {
 		}
 		return "redirect:/admin/products";
 	}
+	
+	
+//	for soft delete
+	
+//	@GetMapping("/deleteProduct/{id}")
+//	public String deleteProduct(@PathVariable int id, HttpSession session) {
+//		Boolean softDeleted = productService.softDeleteProduct(id);
+//		if (softDeleted) {
+//			session.setAttribute("succMsg", "Product marked as deleted");
+//		} else {
+//			session.setAttribute("errorMsg", "Product could not be deleted");
+//		}
+//		return "redirect:/admin/products";
+//	}
+
 
 	@GetMapping("/editProduct/{id}")
 	public String editProduct(@PathVariable int id, Model m) {
@@ -294,8 +310,6 @@ public class AdminController {
 		}
 		return "redirect:/admin/editProduct/" + product.getId();
 	}
-	
-	
 
 	@GetMapping("/users")
 	public String getAllUsers(Model m, @RequestParam Integer type) {

@@ -140,6 +140,8 @@ public class UserServiceImpl implements UserService {
 			dbUser.setCity(user.getCity());
 			dbUser.setState(user.getState());
 			dbUser.setPincode(user.getPincode());
+			
+			
 			dbUser = userRepository.save(dbUser);
 		}
 
@@ -177,5 +179,7 @@ public class UserServiceImpl implements UserService {
 	public Boolean existsEmail(String email) {
 		return userRepository.existsByEmail(email);
 	}
+
+	
 
 }

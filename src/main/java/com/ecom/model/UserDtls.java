@@ -2,6 +2,7 @@ package com.ecom.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class UserDtls {
 	
 	private String name;
 	
-	private String mobleNumber;
+	private String mobileNumber;
 	
 	private String email;
 	
@@ -44,7 +45,9 @@ public class UserDtls {
 	
 	private String role;
 	
-	private Boolean isEnable;
+//	private Boolean isEnable;
+	@Column(nullable = false)
+	private Boolean isEnable = true;
 	
 	private Boolean accountNonLocked;
 	

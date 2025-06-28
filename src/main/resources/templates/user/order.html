@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Vintage Computer Solution</title>
 </head>
 <body>
 	<section>
@@ -77,19 +77,19 @@
 										<tr>
 											<td>Delivery Fee</td>
 											<td>:</td>
-											<td>&#8377; 250</td>
+											<td>&#8377; 0</td>
 										</tr>
 
 										<tr>
 											<td>Tax</td>
 											<td>:</td>
-											<td>&#8377; 100</td>
+											<td>&#8377; 0</td>
 										</tr>
 
 										<tr class="border-top">
 											<td>Total Price</td>
 											<td>:</td>
-											<td>&#8377; [[${totalOrderPrice}]]</td>
+											<td id="payment_field">&#8377; [[${totalOrderPrice}]]</td>
 										</tr>
 									</tbody>
 								</table>
@@ -104,13 +104,13 @@
 									<label class="form-label">Select Payment Type</label> <select required
 										name="paymentType" class="form-control">
 										<option value="">--select--</option>
-										<option value="COD">Cash On Delivery</option>
+										<!-- <option value="COD">Cash On Delivery</option> -->
 										<option value="ONLINE">Online Payment</option>
 									</select>
 
 								</div>
 
-								<button class="btn bg-primary text-white col-md-12">Place
+								<button type="button" onclick="paymentStart()" class="btn bg-primary text-white col-md-12">Place
 									Order</button>
 
 							</div>
@@ -122,5 +122,9 @@
 		</div>
 
 	</section>
+	<!-- <script th:src="@{/js/script.js}"></script> -->
+	
+	 <script src="/js/script.js"></script> 
+	
 </body>
 </html>

@@ -1,10 +1,14 @@
 package com.ecom.model;
 
-import jakarta.persistence.Column;
+import java.time.LocalDate;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,34 +19,31 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Product {
+public class ProductOrder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(length = 500)
-	private String title;
+	private String orderId;
 
-	@Column(length = 5000)
-	private String description;
+	private LocalDate orderDate;
 
-	private String category;
+	@ManyToOne
+	private Product product;
 
 	private Double price;
 
-	private int stock;
+	private Integer quantity;
 
-	private String image;
+	@ManyToOne
+	private UserDtls user;
 
-	private int discount;
-	
-	private Double discountPrice;
-	
-	private Boolean isActive;
-	
-//	@Column(name = "is_deleted")
-//	private boolean isDeleted = false;
+	private String status;
 
-	
+	private String paymentType;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private OrderAddress orderAddress;
+
 }

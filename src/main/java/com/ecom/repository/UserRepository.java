@@ -3,8 +3,10 @@ package com.ecom.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.User;
 
 import com.ecom.model.UserDtls;
+
 
 public interface UserRepository extends JpaRepository<UserDtls, Integer> {
 
@@ -13,5 +15,18 @@ public interface UserRepository extends JpaRepository<UserDtls, Integer> {
 	public List<UserDtls> findByRole(String role);
 	
 	public UserDtls findByResetToken(String token);
+	
+	public Boolean existsByEmail(String email);
+	
+	
+	
+	
+	
+	
+	
+	UserDtls findByEmailAndPasswordAndRole(String email, String password, String role);
+
+
+	UserDtls findByEmailAndRole(String email, String role);
 	
 }

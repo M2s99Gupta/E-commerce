@@ -9,9 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-import java.util.stream.Collector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -244,6 +242,9 @@ public class HomeController {
 	public String searchProduct(@RequestParam String ch, Model m) {
 		List<Product> searchProducts = productService.searchProduct(ch);
 		m.addAttribute("products", searchProducts);
+		
+		
+//		while searching products to remain category visible on page add this 
 		List<Category> categories = categoryService.getAllActiveCategory();
 		m.addAttribute("categories", categories);
 		return "product";
@@ -251,4 +252,3 @@ public class HomeController {
 	}
 
 }
--9i9p988 

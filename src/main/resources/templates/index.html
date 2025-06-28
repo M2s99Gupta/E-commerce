@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Vintage Computer Solution</title>
 </head>
 <body>
 	<section>
@@ -11,7 +11,7 @@
 
 		<div id="carouselExample" class="carousel slide">
 			<div class="carousel-inner">
-				<div class="carousel-item active">
+				<div class="carousel-item active mt-5">
 					<img src="img/ecom1.png" class="d-block w-100" alt="..."
 						height="350px">
 				</div>
@@ -47,6 +47,10 @@
 						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
 						<div class="card-body text-center">
 							<img th:src="@{'img/category_img/'+${c.imageName}}" width="65%" height="140px"><br>
+							
+							
+							
+							<!-- Home page category click view -->
 							<a th:href="@{'/products?category='+${c.name}}" class="text-decoration-none">[[${c.name}]]</a>
 						</div>
 					</div>
@@ -120,6 +124,8 @@
 				<div class="col-md-3" th:each="p:${products}">
 					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-body text-center">
+						
+						<!--  product images-->
 							<img alt="" th:src="@{'img/product_img/'+${p.image}}" class="" width="65%"
 								height="140px">
 							<p class="text-center"><a th:href="@{'/product/'+${p.id}}" class="text-decoration-none">[[${p.title}]]</a></p>

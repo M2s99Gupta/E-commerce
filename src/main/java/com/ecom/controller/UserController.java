@@ -1,18 +1,28 @@
 package com.ecom.controller;
 
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Cart;
@@ -20,13 +30,14 @@ import com.ecom.model.Category;
 import com.ecom.model.OrderRequest;
 import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
-import com.ecom.repository.UserRepository;
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
 import com.ecom.service.OrderService;
 import com.ecom.service.UserService;
 import com.ecom.util.CommonUtil;
 import com.ecom.util.OrderStatus;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -114,7 +125,8 @@ public class UserController {
 		m.addAttribute("carts", carts);
 		if (carts.size() > 0) {
 			Double orderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
-			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 250 + 100;
+//			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 250 + 100;
+			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
 			m.addAttribute("orderPrice", orderPrice);
 			m.addAttribute("totalOrderPrice", totalOrderPrice);
 		}
@@ -209,5 +221,63 @@ public class UserController {
 
 		return "redirect:/user/profile";
 	}
+	
+	
+	
+	
+	//to access manually js file
+	@GetMapping("/js/{fileName}")
+    @ResponseBody
+    public ResponseEntity<FileSystemResource> getJsFile(@PathVariable String fileName) {
+        java.nio.file.Path filePath = Paths.get("src/main/resources/static/js/" + fileName);
+        FileSystemResource resource = new FileSystemResource(filePath);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/javascript"))
+                .body(resource);
+    }
+	
+	
+	
+	
+	
+	
+	
+	// Backend endpoint to verify payment
+//	@PostMapping("/verify_payment")
+//	public ResponseEntity<String> verifyPayment(@RequestParam String payment_id, @RequestParam String order_id, @RequestParam String signature) {
+//	    // Verify the signature using Razorpay's API and respond accordingly
+//	    boolean isVerified = razorpayService.verifyPaymentSignature(payment_id, order_id, signature);
+//	    if (isVerified) {
+//	        // Process the order and mark it as successful
+//	        return ResponseEntity.ok("success");
+//	    } else {
+//	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("failure");
+//	    }
+//	}
+
+	
+	
+//	razorPay
+	@PostMapping("/create_order")
+	@ResponseBody
+	public String createOrder(@RequestBody Map<String, Object> data)  throws Exception{
+		
+		System.out.println(data);
+		
+		int amt = Integer.parseInt(data.get("amount").toString());
+		
+		var client = new RazorpayClient("rzp_test_u0i1GPEddm7STz","a3QCdHP2bAn0puRsjUd3W6gs");
+		
+		
+		JSONObject ob = new JSONObject();
+		ob.put("amount", amt*100);
+		ob.put("currency", "INR");
+		ob.put("receipt", "txn_2345");
+		
+		Order order = client.Orders.create(ob);
+		
+		return order.toString();
+	}
+	
 
 }

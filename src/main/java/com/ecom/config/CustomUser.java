@@ -25,9 +25,8 @@ public class CustomUser implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-		
-		return Arrays.asList(authority);
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toUpperCase());
+	    return Arrays.asList(authority);
 	}
 
 	@Override
@@ -42,12 +41,20 @@ public class CustomUser implements UserDetails {
 		return user.getEmail();
 	}
 	
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		
+//		
+//		return user.getAccountNonLocked();
+//	}
+	
 	@Override
 	public boolean isAccountNonLocked() {
-		
-		
-		return user.getAccountNonLocked();
+	    Boolean locked = user.getAccountNonLocked();
+	    return locked != null ? locked : true; // Defaults to true if null
 	}
+
+	
 	
 	@Override
 	public boolean isCredentialsNonExpired() {
@@ -57,8 +64,15 @@ public class CustomUser implements UserDetails {
 	
 	//to block the users
 	
-	@Override 
+//	@Override 
+//	public boolean isEnabled() {
+//		return user.getIsEnable();
+//	}
+	
+	@Override
 	public boolean isEnabled() {
-		return user.getIsEnable();
+	    Boolean enabled = user.getIsEnable();
+	    return enabled != null ? enabled : true; // default to true if null
 	}
+
 }
